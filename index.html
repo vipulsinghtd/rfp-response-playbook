@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RFP Response Playbook — Treasure AI</title>
+<style>
+/* ── RESET & BASE ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary:   #494FFF;
+  --sec1:      #8753FF;
+  --sec2:      #C466D4;
+  --lime:      #9DCC4C;
+  --salmon:    #F69068;
+  --red:       #EE2328;
+  --grad:      linear-gradient(135deg, #494FFF 0%, #8753FF 50%, #C466D4 100%);
+  --grad-ae:   linear-gradient(135deg, #F69068 0%, #C466D4 100%);
+  --grad-se:   linear-gradient(135deg, #494FFF 0%, #8753FF 100%);
+  --font:      'Segoe UI', 'Inter', system-ui, sans-serif;
+  --slide-w:   1060px;
+  --slide-h:   596px;
+  --slide-r:   16px;
+}
+
+html { font-family: var(--font); background: #e8e8f0; }
+body { display: flex; flex-direction: column; align-items: center; padding: 2rem 1rem 5rem; gap: 1.5rem; }
+
+/* ── SLIDE SHELL ──────────────────────────────────── */
+.slide {
+  width: var(--slide-w);
+  min-height: var(--slide-h);
+  border-radius: var(--slide-r);
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13), 0 1px 4px rgba(0,0,0,0.07);
+  position: relative;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* slide counter badge */
+.slide::after {
+  content: attr(data-n);
+  position: absolute;
+  bottom: 14px; right: 18px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(0,0,0,0.25);
+  letter-spacing: 0.04em;
+}
+
+/* ── SLIDE TOOLBAR ────────────────────────────────── */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  max-width: var(--slide-w);
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(73,79,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 1rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  margin-bottom: 0.5rem;
+}
+.tb-logo { display:flex; align-items:center; gap:8px; font-weight:700; font-size:0.88rem; color:#111; }
+.tb-dot  { width:22px; height:22px; border-radius:6px; background: var(--grad); flex-shrink:0; }
+.tb-nav  { display:flex; gap:0.2rem; flex-wrap:wrap; }
+.tb-nav a {
+  text-decoration:none; font-size:0.72rem; font-weight:600;
+  color: rgba(0,0,0,0.45); padding:0.28rem 0.65rem; border-radius:6px;
+  transition: all 0.13s; white-space:nowrap;
+}
+.tb-nav a:hover { color:#494FFF; background:rgba(73,79,255,0.08); }
+
+/* ── WATERMARK BOTTOM-LEFT ────────────────────────── */
+.slide-footer {
+  position: absolute;
+  bottom: 12px; left: 20px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.22;
+  color: #000;
+}
+
+/* ══════════════════════════════════════════════════
+   SLIDE 1 — COVER
+══════════════════════════════════════════════════ */
+#s1 {
+  background: #fff;
+  flex-direction: row;
+}
+.s1-left {
+  width: 58%;
+  padding: 3.5rem 3rem 3rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.s1-left::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: -60px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: rgba(73,79,255,0.06);
+  pointer-events: none;
+}
+.s1-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--sec1);
+  margin-bottom: 1.2rem;
+}
+.s1-tag span { display:inline-block; width:22px; height:2px; background:var(--sec1); border-radius:2px; }
+.s1-title {
+  font-size: 3rem; font-weight: 900;
+  letter-spacing: -0.04em; line-height: 1.05;
+  color: #111;
+  margin-bottom: 0.4rem;
+}
+.s1-title em {
+  font-style: normal;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.s1-sub {
+  font-size: 1rem; color: rgba(0,0,0,0.45);
+  margin-bottom: 2rem; font-weight: 400;
+}
+.pills { display:flex; flex-wrap:wrap; gap:0.5rem; }
+.pill {
+  display:inline-flex; align-items:center; gap:5px;
+  padding: 0.3rem 0.85rem; border-radius:999px;
+  font-size:0.75rem; font-weight:700; border:1.5px solid;
+}
+.pill-ae { color:#d4601c; border-color:rgba(246,144,104,0.5); background:rgba(246,144,104,0.1); }
+.pill-pm { color:#9a35b0; border-color:rgba(196,102,212,0.5); background:rgba(196,102,212,0.1); }
+.pill-se { color:#5b35d4; border-color:rgba(135,83,255,0.5);  background:rgba(135,83,255,0.1); }
+
+.s1-right {
+  flex: 1;
+  background: var(--grad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 1.4rem;
+}
+.s1-card {
+  width: 100%; max-width: 220px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+.s1-card-num { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; opacity:0.65; margin-bottom:0.3rem; }
+.s1-card-role { font-size:0.9rem; font-weight:800; }
+.s1-card-desc { font-size:0.72rem; opacity:0.75; margin-top:0.3rem; line-height:1.4; }
+
+/* ══════════════════════════════════════════════════
+   SLIDE 2 — OVERVIEW
+══════════════════════════════════════════════════ */
+#s2 { background: #fafafa; }
+.slide-header {
+  padding: 2.2rem 3rem 0;
+}
+.slide-eyebrow {
+  font-size: 0.65rem; font-weight:800; letter-spacing:0.13em;
+  text-transform:uppercase; color:var(--primary);
+  margin-bottom:0.4rem;
+}
+.slide-title {
+  font-size: 1.75rem; font-weight:900;
+  letter-spacing:-0.03em; color:#111; line-height:1.1;
+}
+.slide-title .grad-text {
+  background:var(--grad);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.slide-body { padding: 1.5rem 3rem 2.5rem; flex:1; display:flex; flex-direction:column; }
+
+.overview-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:1.1rem; flex:1; }
+.ov-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e8e8f0;
+  padding: 1.5rem 1.4rem;
+  display: flex; flex-direction: column;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+}
+.ov-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:4px;
+  background: var(--ov-bar, var(--grad));
+}
+.ov-icon { font-size:1.5rem; margin-bottom:0.75rem; }
+.ov-role { font-size:0.7rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.4rem; }
+.ov-text { font-size:0.82rem; color:rgba(0,0,0,0.55); line-height:1.55; }
+.ov-ae { --ov-bar: linear-gradient(90deg,#F69068,#C466D4); }
+.ov-ae .ov-role { color:#c4560d; }
+.ov-pm { --ov-bar: linear-gradient(90deg,#8753FF,#C466D4); }
+.ov-pm .ov-role { color:#6b35c4; }
+.ov-se { --ov-bar: linear-gradient(90deg,#494FFF,#8753FF); }
+.ov-se .ov-role { color:#3030cc; }
+
+/* ══════════════════════════════════════════════════
+   DIVIDER SLIDES
+══════════════════════════════════════════════════ */
+.slide-divider {
+  flex-direction: row;
+  align-items: stretch;
+}
+.div-left {
+  width: 52%;
+  display: flex; flex-direction:column; justify-content:center;
+  padding: 3rem 3.5rem;
+  background: #fff;
+}
+.div-num {
+  font-size: 4.5rem; font-weight:900; letter-spacing:-0.06em;
+  line-height:1; margin-bottom:0.3rem;
+  background: var(--dn-grad, var(--grad));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.div-eyebrow { font-size:0.65rem; font-weight:800; letter-spacing:0.13em; text-transform:uppercase; color:rgba(0,0,0,0.35); margin-bottom:0.6rem; }
+.div-role { font-size:2rem; font-weight:900; letter-spacing:-0.03em; color:#111; line-height:1.1; }
+.div-tagline { font-size:0.88rem; color:rgba(0,0,0,0.45); margin-top:0.75rem; line-height:1.5; max-width:320px; }
+.div-right {
+  flex:1;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding: 2rem 1.5rem;
+  gap: 0.9rem;
+}
+.div-chip {
+  width:100%; max-width:240px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius:10px;
+  padding:0.85rem 1.1rem;
+  color:#fff;
+  font-size:0.78rem; font-weight:600; line-height:1.35;
+}
+.div-chip strong { display:block; font-size:0.72rem; font-weight:800; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:0.2rem; opacity:0.7; }
+
+/* AE divider */
+#s3 .div-right  { background: var(--grad-ae); }
+#s3 .div-num    { --dn-grad: linear-gradient(135deg,#F69068,#C466D4); }
+/* PM divider */
+#s5 .div-right  { background: var(--grad); }
+#s5 .div-num    { --dn-grad: var(--grad); }
+/* SE divider */
+#s9 .div-right  { background: var(--grad-se); }
+#s9 .div-num    { --dn-grad: var(--grad-se); }
+
+/* ══════════════════════════════════════════════════
+   3-BOX CARDS SLIDE
+══════════════════════════════════════════════════ */
+.three-col { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; flex:1; }
+.four-col  { display:grid; grid-template-columns:repeat(4,1fr); gap:0.9rem; flex:1; }
+
+.box-card {
+  background:#fff;
+  border:1px solid #e8e8f0;
+  border-radius:12px;
+  padding:1.5rem 1.4rem;
+  box-shadow:0 1px 6px rgba(0,0,0,0.05);
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column;
+}
+.box-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:4px;
+  background: var(--bc-bar, var(--grad));
+}
+.box-num {
+  font-size:1.4rem; font-weight:900; letter-spacing:-0.04em;
+  background: var(--bc-bar, var(--grad));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:0.6rem; line-height:1;
+}
+.box-card h3 { font-size:0.88rem; font-weight:800; color:#111; margin-bottom:0.45rem; }
+.box-card p  { font-size:0.78rem; color:rgba(0,0,0,0.52); line-height:1.55; }
+
+.bc-ae { --bc-bar: linear-gradient(90deg,#F69068,#C466D4); }
+.bc-pm { --bc-bar: linear-gradient(90deg,#8753FF,#C466D4); }
+.bc-se { --bc-bar: linear-gradient(90deg,#494FFF,#8753FF); }
+
+/* ══════════════════════════════════════════════════
+   BULLETS SLIDE
+══════════════════════════════════════════════════ */
+.bullets-two-col {
+  display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; flex:1;
+}
+.bullets-list { list-style:none; display:flex; flex-direction:column; gap:0; }
+.bullets-list li {
+  display:flex; align-items:flex-start; gap:0.75rem;
+  padding:0.75rem 0;
+  border-bottom:1px solid #f0f0f5;
+  font-size:0.82rem; color:rgba(0,0,0,0.65); line-height:1.5;
+}
+.bullets-list li:last-child { border-bottom:none; }
+.b-dot {
+  flex-shrink:0; margin-top:0.38em;
+  width:8px; height:8px; border-radius:50%;
+  background: var(--bd-color, var(--primary));
+}
+.b-label { font-weight:800; font-size:0.68rem; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:0.2rem; }
+.bullets-pm .b-dot { --bd-color: var(--sec1); }
+
+.side-note {
+  background: linear-gradient(135deg, rgba(135,83,255,0.06), rgba(196,102,212,0.06));
+  border:1px solid rgba(135,83,255,0.15);
+  border-radius:12px;
+  padding:1.5rem;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.side-note h4 { font-size:0.8rem; font-weight:800; color:var(--sec1); margin-bottom:0.75rem; letter-spacing:0.04em; }
+.side-note p  { font-size:0.8rem; color:rgba(0,0,0,0.55); line-height:1.55; margin-bottom:0.65rem; }
+.side-note p:last-child { margin-bottom:0; }
+
+/* ══════════════════════════════════════════════════
+   STEPS SLIDE
+══════════════════════════════════════════════════ */
+.steps-wrap { position:relative; display:flex; gap:0; flex:1; }
+.steps-wrap::before {
+  content:'';
+  position:absolute;
+  top:36px; left:calc(10% + 10px); right:calc(10% + 10px);
+  height:2px;
+  background: var(--grad);
+  z-index:0;
+}
+.step-item {
+  flex:1; display:flex; flex-direction:column; align-items:center;
+  text-align:center; padding:0 0.5rem; position:relative; z-index:1;
+}
+.step-circle {
+  width:72px; height:72px; border-radius:50%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  border:2px solid; background:#fff;
+  margin-bottom:1rem; flex-shrink:0;
+}
+.step-n  { font-size:0.6rem; font-weight:800; letter-spacing:0.08em; opacity:0.6; }
+.step-em { font-size:0.7rem; font-weight:900; letter-spacing:0.04em; text-transform:uppercase; }
+.step-item:nth-child(1) .step-circle { border-color:#494FFF; color:#494FFF; }
+.step-item:nth-child(2) .step-circle { border-color:#6751F7; color:#6751F7; }
+.step-item:nth-child(3) .step-circle { border-color:#8753FF; color:#8753FF; }
+.step-item:nth-child(4) .step-circle { border-color:#A85BE0; color:#A85BE0; }
+.step-item:nth-child(5) .step-circle { border-color:#C466D4; color:#C466D4; }
+.step-desc { font-size:0.74rem; color:rgba(0,0,0,0.52); line-height:1.5; max-width:160px; }
+
+/* ══════════════════════════════════════════════════
+   FLOW SUMMARY SLIDE
+══════════════════════════════════════════════════ */
+#s11 { background:#fafafa; }
+.flow-wrap { display:grid; grid-template-columns:repeat(4,1fr); gap:0.9rem; flex:1; position:relative; }
+.flow-wrap::before {
+  content:'';
+  position:absolute;
+  top:52px;
+  left:calc(12.5% + 8px); right:calc(12.5% + 8px);
+  height:2px;
+  background: var(--grad);
+  z-index:0;
+}
+.flow-card {
+  background:#fff;
+  border-radius:12px;
+  border:1px solid #e8e8f0;
+  padding:1.25rem 1rem;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  box-shadow:0 1px 6px rgba(0,0,0,0.05);
+  position:relative; z-index:1;
+}
+.flow-icon {
+  width:64px; height:64px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; margin-bottom:0.85rem;
+  border:2px solid; background:#fff;
+}
+.flow-card:nth-child(1) .flow-icon { border-color:#F69068; }
+.flow-card:nth-child(2) .flow-icon { border-color:#C466D4; }
+.flow-card:nth-child(3) .flow-icon { border-color:#8753FF; }
+.flow-card:nth-child(4) .flow-icon { border-color:#494FFF; }
+.flow-role {
+  font-size:0.68rem; font-weight:800; text-transform:uppercase;
+  letter-spacing:0.08em; margin-bottom:0.4rem;
+}
+.flow-card:nth-child(1) .flow-role { color:#c4560d; }
+.flow-card:nth-child(2) .flow-role { color:#9a35b0; }
+.flow-card:nth-child(3) .flow-role { color:#5b35d4; }
+.flow-card:nth-child(4) .flow-role { color:#3030cc; }
+.flow-detail { font-size:0.72rem; color:rgba(0,0,0,0.5); line-height:1.5; }
+.flow-detail span { display:block; }
+
+/* ══════════════════════════════════════════════════
+   THANK YOU SLIDE
+══════════════════════════════════════════════════ */
+#s12 { background:var(--grad); flex-direction:row; align-items:stretch; }
+.ty-left {
+  flex:1; display:flex; flex-direction:column; justify-content:center;
+  padding:3.5rem;
+}
+.ty-tagline {
+  font-size:0.65rem; font-weight:800; letter-spacing:0.14em;
+  text-transform:uppercase; color:rgba(255,255,255,0.6);
+  margin-bottom:1rem;
+}
+.ty-title {
+  font-size:3rem; font-weight:900; letter-spacing:-0.04em;
+  line-height:1.05; color:#fff; margin-bottom:1.5rem;
+}
+.ty-sub { font-size:0.9rem; color:rgba(255,255,255,0.65); line-height:1.6; max-width:380px; }
+.ty-right {
+  width:38%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:2rem; gap:0.8rem;
+}
+.ty-box {
+  width:100%; max-width:210px;
+  background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.3);
+  border-radius:10px;
+  padding:0.85rem 1.1rem;
+  color:#fff;
+  font-size:0.78rem; line-height:1.4;
+}
+.ty-box strong { display:block; font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; opacity:0.6; margin-bottom:0.25rem; }
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════ */
+@media (max-width:1100px) {
+  :root { --slide-w:100%; --slide-h:auto; }
+  .three-col, .four-col, .overview-grid, .flow-wrap, .bullets-two-col { grid-template-columns:1fr 1fr; }
+  .steps-wrap { flex-wrap:wrap; gap:1rem; }
+  .steps-wrap::before { display:none; }
+  .flow-wrap::before { display:none; }
+  .s1-right, .div-right, .ty-right { display:none; }
+  #s1 { flex-direction:column; }
+  .s1-left { width:100%; }
+  .slide-divider { flex-direction:column; }
+  .div-left { width:100%; }
+  .tb-nav { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="tb-logo">
+    <div class="tb-dot"></div>
+    Treasure AI &nbsp;·&nbsp; RFP Response Playbook
+  </div>
+  <nav class="tb-nav">
+    <a href="#s1">Cover</a>
+    <a href="#s2">Overview</a>
+    <a href="#s3">AE</a>
+    <a href="#s5">Proposal Mgr</a>
+    <a href="#s9">SE / SC / SA</a>
+    <a href="#s11">Flow</a>
+  </nav>
+</div>
+
+<!-- ══ SLIDE 1 — COVER ══════════════════════════════ -->
+<div class="slide" id="s1" data-n="1 / 12">
+  <div class="s1-left">
+    <div class="s1-tag"><span></span>Internal Process Guide</div>
+    <div class="s1-title">RFP Response<br><em>Playbook</em></div>
+    <div class="s1-sub">Roles &amp; Responsibilities</div>
+    <div class="pills">
+      <span class="pill pill-ae">Account Executive</span>
+      <span class="pill pill-pm">Proposal Manager</span>
+      <span class="pill pill-se">SE / SC / SA</span>
+    </div>
+  </div>
+  <div class="s1-right">
+    <div class="s1-card">
+      <div class="s1-card-num">ROLE 01</div>
+      <div class="s1-card-role">Account Executive</div>
+      <div class="s1-card-desc">Owns the handoff — from receipt to the PM.</div>
+    </div>
+    <div class="s1-card">
+      <div class="s1-card-num">ROLE 02</div>
+      <div class="s1-card-role">Proposal Manager</div>
+      <div class="s1-card-desc">Owns the entire process — intake to submission.</div>
+    </div>
+    <div class="s1-card">
+      <div class="s1-card-num">ROLE 03</div>
+      <div class="s1-card-role">Solution Engineer</div>
+      <div class="s1-card-desc">Owns the answers — exclusively inside Loopio.</div>
+    </div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 2 — OVERVIEW ════════════════════════════ -->
+<div class="slide" id="s2" data-n="2 / 12">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Overview</div>
+    <div class="slide-title">Three Roles. One Winning <span class="grad-text">Response.</span></div>
+  </div>
+  <div class="slide-body">
+    <div class="overview-grid">
+      <div class="ov-card ov-ae">
+        <div class="ov-icon">📨</div>
+        <div class="ov-role">Account Executive</div>
+        <div class="ov-text">Receives the RFP, shares the full packet with the Proposal Manager, and communicates all deadlines clearly.</div>
+      </div>
+      <div class="ov-card ov-pm">
+        <div class="ov-icon">📋</div>
+        <div class="ov-role">Proposal Manager</div>
+        <div class="ov-text">Owns the entire RFP process — Loopio intake, stakeholder assignment, lifecycle management, and final export.</div>
+      </div>
+      <div class="ov-card ov-se">
+        <div class="ov-icon">✍️</div>
+        <div class="ov-role">Solution Engineer / SC / SA</div>
+        <div class="ov-text">Works exclusively inside Loopio — answers open questions, reviews AI answers, and flags image needs for the PM.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 3 — AE DIVIDER ══════════════════════════ -->
+<div class="slide slide-divider" id="s3" data-n="3 / 12">
+  <div class="div-left">
+    <div class="div-eyebrow">Role 01</div>
+    <div class="div-num">AE</div>
+    <div class="div-role">Account<br>Executive</div>
+    <div class="div-tagline">The first link in the chain. When an RFP arrives, the AE sets everything in motion — clearly, completely, and on time.</div>
+  </div>
+  <div class="div-right">
+    <div class="div-chip"><strong>Responsibility</strong>Communicate RFP receipt to the Proposal Manager immediately.</div>
+    <div class="div-chip"><strong>Responsibility</strong>Share packet · Determine Q&amp;A vs open format · Align with SE on response vehicle if open format.</div>
+    <div class="div-chip"><strong>Responsibility</strong>Set due dates · Provide Loopio link + media assets · Create Slack channel.</div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 4 — AE RESPONSIBILITIES ════════════════ -->
+<div class="slide" id="s4" data-n="4 / 12">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Account Executive</div>
+    <div class="slide-title">Responsibilities</div>
+  </div>
+  <div class="slide-body">
+    <div class="four-col">
+      <div class="box-card bc-ae">
+        <div class="box-num">01</div>
+        <h3>Communicate RFP Receipt</h3>
+        <p>Notify the Proposal Manager the moment an RFP arrives. No delays — the clock starts immediately.</p>
+      </div>
+      <div class="box-card bc-ae">
+        <div class="box-num">02</div>
+        <h3>Share the RFP Packet &amp; Determine Format</h3>
+        <p>Deliver the complete RFP with all attachments to the PM. Determine if it's <strong>Q&amp;A format</strong> or <strong>open format</strong>. If open format, collaborate directly with the SE to decide the best response vehicle — slides, Word doc, or other — before handoff.</p>
+      </div>
+      <div class="box-card bc-ae">
+        <div class="box-num">03</div>
+        <h3>Set Clear Due Dates</h3>
+        <p>Communicate the client-facing deadline and internal submission cutoff clearly and in writing.</p>
+      </div>
+      <div class="box-card bc-ae">
+        <div class="box-num">04</div>
+        <h3>Provide Support Resources</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-top:0.25rem;">
+          <li style="display:flex;align-items:flex-start;gap:0.5rem;font-size:0.78rem;color:rgba(0,0,0,0.58);line-height:1.45;">
+            <span style="flex-shrink:0;margin-top:0.38em;width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#F69068,#C466D4);display:inline-block;"></span>
+            Complete MEDDPICC check before handoff to PM
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:0.5rem;font-size:0.78rem;color:rgba(0,0,0,0.58);line-height:1.45;">
+            <span style="flex-shrink:0;margin-top:0.38em;width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#F69068,#C466D4);display:inline-block;"></span>
+            Share HubSpot opportunity link with the Proposal Manager
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:0.5rem;font-size:0.78rem;color:rgba(0,0,0,0.58);line-height:1.45;">
+            <span style="flex-shrink:0;margin-top:0.38em;width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#F69068,#C466D4);display:inline-block;"></span>
+            Create a dedicated Slack channel for the RFP project
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 5 — PM DIVIDER ══════════════════════════ -->
+<div class="slide slide-divider" id="s5" data-n="5 / 12">
+  <div class="div-left">
+    <div class="div-eyebrow">Role 02</div>
+    <div class="div-num">PM</div>
+    <div class="div-role">Proposal<br>Manager</div>
+    <div class="div-tagline">The owner of the entire RFP process. From the moment the packet arrives to the moment it's submitted — the PM is responsible.</div>
+  </div>
+  <div class="div-right">
+    <div class="div-chip"><strong>Intake</strong>Run RFP through Loopio skill · Upload to Loopio · Assign all owners</div>
+    <div class="div-chip"><strong>QA &amp; Export</strong>Completeness check only · Export with consistent formatting · All images included</div>
+    <div class="div-chip"><strong>Lifecycle</strong>Set timelines · Schedule calls · Track progress · Submit on time</div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 6 — PM LOOPIO INTAKE ════════════════════ -->
+<div class="slide" id="s6" data-n="6 / 12">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Proposal Manager — Intake</div>
+    <div class="slide-title">Loopio Intake Process</div>
+  </div>
+  <div class="slide-body">
+    <div class="four-col">
+      <div class="box-card bc-pm">
+        <div class="box-num">01</div>
+        <h3>Run the Loopio Skill</h3>
+        <p>Process the RFP through the Loopio answering skill to auto-generate initial responses.</p>
+      </div>
+      <div class="box-card bc-pm">
+        <div class="box-num">02</div>
+        <h3>Upload to Loopio</h3>
+        <p>Import the skill output into Loopio with the correct project and section structure.</p>
+      </div>
+      <div class="box-card bc-pm">
+        <div class="box-num">03</div>
+        <h3>Assign Stakeholders</h3>
+        <p>Tag SC / SA / SE reviewers per question. Every question must have a named owner.</p>
+      </div>
+      <div class="box-card bc-pm">
+        <div class="box-num">04</div>
+        <h3>Ensure 100% Coverage</h3>
+        <p>Verify every question is uploaded — no sections skipped. Manual edits where needed.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 7 — PM QA & EXPORT ══════════════════════ -->
+<div class="slide" id="s7" data-n="7 / 12">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Proposal Manager — QA &amp; Export</div>
+    <div class="slide-title">Quality Check &amp; Export</div>
+  </div>
+  <div class="slide-body" style="flex-direction:row;gap:1.25rem;padding-top:1rem;">
+
+    <!-- LEFT: scope statement -->
+    <div style="width:36%;display:flex;flex-direction:column;gap:1rem;">
+      <div style="background:linear-gradient(135deg,rgba(135,83,255,0.08),rgba(196,102,212,0.08));border:1.5px solid rgba(135,83,255,0.2);border-radius:14px;padding:1.5rem 1.4rem;flex:1;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:0.62rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#8753FF;margin-bottom:0.75rem;">PM's Scope</div>
+        <div style="font-size:1.3rem;font-weight:900;line-height:1.2;color:#111;letter-spacing:-0.02em;margin-bottom:0.85rem;">Completeness<br><span style="background:linear-gradient(135deg,#8753FF,#C466D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">not accuracy.</span></div>
+        <div style="font-size:0.78rem;color:rgba(0,0,0,0.5);line-height:1.55;">The PM verifies that every question has been answered. Accuracy of the content is owned by the SE — the PM does not rewrite or validate answers.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #e8e8f0;border-radius:14px;padding:1.1rem 1.4rem;box-shadow:0 1px 6px rgba(0,0,0,0.05);">
+        <div style="font-size:0.62rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(0,0,0,0.35);margin-bottom:0.5rem;">Export</div>
+        <div style="font-size:0.82rem;font-weight:700;color:#111;margin-bottom:0.25rem;">Send to required format</div>
+        <div style="font-size:0.75rem;color:rgba(0,0,0,0.5);line-height:1.45;">Export the completed RFP into the client's required template — Word, slides, or PDF.</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: checklist grid -->
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0.85rem;">
+
+      <div style="background:#fff;border:1px solid #e8e8f0;border-radius:12px;padding:1.1rem 1.2rem;box-shadow:0 1px 6px rgba(0,0,0,0.04);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#8753FF,#C466D4);border-radius:12px 12px 0 0;"></div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+          <span style="font-size:1rem;">☑️</span>
+          <span style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#8753FF;">Every Question Answered</span>
+        </div>
+        <div style="font-size:0.76rem;color:rgba(0,0,0,0.52);line-height:1.5;">No blank answers. No skipped sections. Every single question has a response before export.</div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e8f0;border-radius:12px;padding:1.1rem 1.2rem;box-shadow:0 1px 6px rgba(0,0,0,0.04);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#8753FF,#C466D4);border-radius:12px 12px 0 0;"></div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+          <span style="font-size:1rem;">☑️</span>
+          <span style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#8753FF;">Full Coverage</span>
+        </div>
+        <div style="font-size:0.76rem;color:rgba(0,0,0,0.52);line-height:1.5;">All sections, sub-sections, and appendix questions accounted for — nothing dropped.</div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e8f0;border-radius:12px;padding:1.1rem 1.2rem;box-shadow:0 1px 6px rgba(0,0,0,0.04);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#8753FF,#C466D4);border-radius:12px 12px 0 0;"></div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+          <span style="font-size:1rem;">☑️</span>
+          <span style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#8753FF;">Fonts &amp; Formatting</span>
+        </div>
+        <div style="font-size:0.76rem;color:rgba(0,0,0,0.52);line-height:1.5;">Consistent fonts, spacing, and style throughout. No mixed formatting or off-template text.</div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e8f0;border-radius:12px;padding:1.1rem 1.2rem;box-shadow:0 1px 6px rgba(0,0,0,0.04);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#8753FF,#C466D4);border-radius:12px 12px 0 0;"></div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+          <span style="font-size:1rem;">☑️</span>
+          <span style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#8753FF;">Images Included</span>
+        </div>
+        <div style="font-size:0.76rem;color:rgba(0,0,0,0.52);line-height:1.5;">All screenshots, diagrams, and media sourced by PM are placed correctly in the final document.</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 8 — PM LIFECYCLE ════════════════════════ -->
+<div class="slide" id="s8" data-n="8 / 12">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Proposal Manager — Lifecycle</div>
+    <div class="slide-title">End-to-End Ownership</div>
+  </div>
+  <div class="slide-body">
+    <div class="steps-wrap">
+      <div class="step-item">
+        <div class="step-circle"><div class="step-n">STEP</div><div class="step-em">01</div></div>
+        <div class="step-desc"><strong>Intake</strong><br>Receive from AE · Run Loopio skill · Upload all questions — no gaps</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle"><div class="step-n">STEP</div><div class="step-em">02</div></div>
+        <div class="step-desc"><strong>Assign</strong><br>Assign all questions to SC/SA/SE · Set clear internal answer-by deadlines</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle"><div class="step-n">STEP</div><div class="step-em">03</div></div>
+        <div class="step-desc"><strong>Align</strong><br>Schedule stakeholder calls · Send calendar invites · Confirm all owners are in the loop</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle"><div class="step-n">STEP</div><div class="step-em">04</div></div>
+        <div class="step-desc"><strong>Track</strong><br>Monitor daily · Follow up on overdue owners · Keep the process moving</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle"><div class="step-n">STEP</div><div class="step-em">05</div></div>
+        <div class="step-desc"><strong>Submit</strong><br>QA the final export — fonts, images, formatting. Submit on time.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 9 — SE DIVIDER ══════════════════════════ -->
+<div class="slide slide-divider" id="s9" data-n="9 / 12">
+  <div class="div-left">
+    <div class="div-eyebrow">Role 03</div>
+    <div class="div-num">SE</div>
+    <div class="div-role">Solution<br>Engineer</div>
+    <div class="div-tagline">The answer expert. All work happens inside Loopio — no exceptions. Answer, review, and flag what needs attention.</div>
+  </div>
+  <div class="div-right">
+    <div class="div-chip"><strong>Scope</strong>Work exclusively inside Loopio — no parallel documents or offline edits.</div>
+    <div class="div-chip"><strong>Answers</strong>Fill gaps the Loopio skill missed. Review every AI-generated answer.</div>
+    <div class="div-chip"><strong>Images</strong>Add a comment for any image needed and tag the Proposal Manager.</div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 10 — SE RESPONSIBILITIES ═══════════════ -->
+<div class="slide" id="s10" data-n="10 / 12">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Solution Engineer / SC / SA</div>
+    <div class="slide-title">Responsibilities</div>
+  </div>
+  <div class="slide-body">
+    <div class="three-col">
+      <div class="box-card bc-se">
+        <div class="box-num">01</div>
+        <h3>Work Inside Loopio Only</h3>
+        <p>All answering and reviewing happens exclusively inside Loopio. No parallel documents or offline edits — ever.</p>
+      </div>
+      <div class="box-card bc-se">
+        <div class="box-num">02</div>
+        <h3>Answer &amp; Review Questions</h3>
+        <p>Answer questions the Loopio skill could not fill. Review and validate every AI-generated answer for accuracy.</p>
+      </div>
+      <div class="box-card bc-se">
+        <div class="box-num">03</div>
+        <h3>Flag Image Needs</h3>
+        <p>For any answer requiring an image, add a comment in Loopio with details on what is needed and tag the Proposal Manager.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 11 — FLOW SUMMARY ═══════════════════════ -->
+<div class="slide" id="s11" data-n="11 / 12">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Summary</div>
+    <div class="slide-title">End-to-End RFP Response <span class="grad-text">Flow</span></div>
+  </div>
+  <div class="slide-body">
+    <div class="flow-wrap">
+      <div class="flow-card">
+        <div class="flow-icon">📨</div>
+        <div class="flow-role">Account Executive</div>
+        <div class="flow-detail">
+          <span>Receives RFP</span>
+          <span>Notifies PM</span>
+          <span>Shares full packet</span>
+          <span>Communicates deadline</span>
+        </div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-icon">⚙️</div>
+        <div class="flow-role">PM — Intake</div>
+        <div class="flow-detail">
+          <span>Runs Loopio skill</span>
+          <span>Uploads all questions</span>
+          <span>Assigns SC/SA/SE</span>
+          <span>Confirms 100% coverage</span>
+        </div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-icon">✍️</div>
+        <div class="flow-role">Solution Engineer</div>
+        <div class="flow-detail">
+          <span>Answers open questions</span>
+          <span>Reviews AI answers</span>
+          <span>Flags image needs</span>
+          <span>Tags PM in comments</span>
+        </div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-icon">📤</div>
+        <div class="flow-role">PM — QA &amp; Export</div>
+        <div class="flow-detail">
+          <span>Reviews all answers</span>
+          <span>Exports to template</span>
+          <span>QA fonts &amp; images</span>
+          <span>Submits on time</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">Treasure AI</div>
+</div>
+
+<!-- ══ SLIDE 12 — THANK YOU ══════════════════════════ -->
+<div class="slide" id="s12" data-n="12 / 12">
+  <div class="ty-left">
+    <div class="ty-tagline">RFP Response Playbook</div>
+    <div class="ty-title">Making Every<br>RFP a Win.</div>
+    <div class="ty-sub">Three roles. Clear ownership. One process.<br>Follow the playbook and every response goes out complete, on time, and on brand.</div>
+  </div>
+  <div class="ty-right">
+    <div class="ty-box"><strong>Account Executive</strong>Handoff — clear, complete, immediate.</div>
+    <div class="ty-box"><strong>Proposal Manager</strong>Process — owned end to end.</div>
+    <div class="ty-box"><strong>Solution Engineer</strong>Answers — inside Loopio, always.</div>
+  </div>
+  <div class="slide-footer" style="color:#fff;opacity:0.4;">Treasure AI</div>
+</div>
+
+</body>
+</html>
